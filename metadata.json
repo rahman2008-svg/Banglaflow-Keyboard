@@ -1,0 +1,6 @@
+{
+  "name": "BanglaFlow Keyboard",
+  "description": "An offline Bangla phonetic and layout keyboard featuring Avro phonetic typing, custom themes, offline suggestion engine, emoji keyboard, clipboard, and offline speech input.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

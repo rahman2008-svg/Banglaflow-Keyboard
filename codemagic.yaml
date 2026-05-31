@@ -1,0 +1,13 @@
+workflows:
+  android-build:
+    name: BanglaFlow Keyboard
+
+    environment:
+      java: 21
+
+    scripts:
+      - chmod +x gradlew
+      - ./gradlew assembleDebug
+
+    artifacts:
+      - app/build/outputs/**/*.apk
