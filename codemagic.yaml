@@ -1,13 +1,48 @@
 workflows:
   android-build:
-    name: BanglaFlow Keyboard
+    name: BanglaFlow Keyboard CI Build
+    max_build_duration: 60
+    instance_type: mac_mini_m1
 
     environment:
-      java: 21
+      java: 17
+
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: "*"
+          include: true
 
     scripts:
-      - chmod +x gradlew
-      - ./gradlew assembleDebug
+      - name: Clean workspace
+        script: |
+          git clean -ffdx
+
+      - name: Setup local.properties
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+
+      - name: Grant Gradle permission
+        script: |
+          chmod +x gradlew
+
+      - name: Download dependencies
+        script: |
+          ./gradlew dependencies
+
+      - name: Build Debug APK
+        script: |
+          ./gradlew clean assembleDebug
 
     artifacts:
-      - app/build/outputs/**/*.apk
+      - app/build/outputs/apk/debug/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - princearabdurrahman57@gmail.com
+        notify:
+          success: true
+          failure: true
